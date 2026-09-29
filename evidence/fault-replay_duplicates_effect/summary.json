@@ -1,0 +1,39 @@
+{
+  "driver": "fault-replay_duplicates_effect",
+  "impl": "aacb-003-impl-faulty.py",
+  "fault": "replay_duplicates_effect",
+  "contract": "v0.3.0",
+  "run": "internally operated",
+  "ts": "2026-09-29T19:35:13Z",
+  "allow_half": "4/4",
+  "deny_half": "3/4",
+  "full_correct_of_8": 7,
+  "conformance": "NOT CONFORMANT",
+  "restart_canary": {
+    "mechanism": "harness called the driver's restart(), then DROPPED the driver object (weakref confirms it was garbage-collected: no in-memory state can leak across) and constructed a brand-new Driver instance on the same workdir. The ordered effects() tuple observed before restart must equal the tuple observed after. Equality proves the new instance reloaded the persisted store rather than re-initializing an empty one.",
+    "old_instance_garbage_collected": true,
+    "effects_before": 1,
+    "effects_after": 1,
+    "tuples_equal": true,
+    "pass": true
+  },
+  "g4_effect_invariant": {
+    "effects_across_s14_s15": 2,
+    "expected": 1,
+    "pass": false
+  },
+  "unauthorized_key_swap_probe": {
+    "name": "unauthorized_owner_key_swap",
+    "in_frozen_v0_3_0_verdict": false,
+    "note": "harness-level check only: frozen contract defers unauthorized transitions to a future vector",
+    "unauthorized_swap_refused": true,
+    "refused_via": "ValueError",
+    "g3_still_allow": true,
+    "no_successor_installed": true,
+    "g2_still_stale_owner": true,
+    "pass": true
+  },
+  "failed_sids": [
+    "S15"
+  ]
+}
